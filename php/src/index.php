@@ -1,3 +1,9 @@
+<?php
+    require_once ('../vendor/autoload.php');
+
+    use App\Objectes\Album;
+    $album = include_once('albums.php');
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +24,7 @@
             <p>A partir de l'array d'albums obtingut de la pàgina web (https://www.allmusic.com/)</p>
             <ol>
                 <li>
-                    Fes la classe Album:
+                    Fes la classe \App\Objectes\Album:
                     <ul>
                         <li>Amb les propietats que marca l'index de l'array</li>
                         <li>Amb el constructor de php8</li>
@@ -77,8 +83,5 @@
             </ol>
         </section>
 
-        <?php $album = include_once('albums.php');
-              dd($album);
-        ?>
     </body>
 </html>

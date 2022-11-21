@@ -4,8 +4,9 @@
     "license" : "MIT",
     "autoload": {
         "psr-4": {
-            "Igomis\\Phpserve\\": "default_site/src/"
-        }
+            "App\\": "src/app/"
+        },
+        "files": ["src/app/Helpers/myHelper.php"]
     },
     "authors": [
         {

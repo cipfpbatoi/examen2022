@@ -28,9 +28,9 @@ $crawler->filter('section.discography table td:nth-child(2) a img')->each(
         $songs['cover'][$i] = $node->attr('src');
     }
 );
-$crawler->filter('section.discography table td:nth-child(2) a img')->each(
+$crawler->filter('section.discography table td:nth-child(2) a')->each(
     function ($node,$i) use (&$songs) {
-        $songs['link'][$i] = $node->attr('src');
+        $songs['link'][$i] = $node->attr('href');
     }
 );
 
