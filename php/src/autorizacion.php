@@ -1,7 +1,9 @@
 <?php
     require_once ('../vendor/autoload.php');
-    use App\Exceptions\FormInvalidException;
     session_start();
+
+    use App\Exceptions\FormInvalidException;
+
     if (!isset($_SESSION['nick'])){
         header("Location:login.html");
     }

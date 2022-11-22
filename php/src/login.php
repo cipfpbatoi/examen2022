@@ -5,8 +5,6 @@ session_start();
 use App\Objectes\Album;
 use App\Util\LogFactory;
 
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $album = include_once('albums.php');
     $log = LogFactory::getLogger('accesos');
@@ -17,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $album['year'][$i],
             $album['label'][$i],
             $album['cover'][$i],
-            $album['link'][$i]
+            'album?src='.$album['link'][$i]
         );
     }
 
@@ -30,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $log->info('Acces Nick', ['nick' => $nick, 'album' => $password]);
         header('Location:main.php');
     } else {
-        header("Location:login.html");
         $log->warning('Acces incorrecte', ['nick' => $nick]);
+        header("Location:login.html");
     }
 } else {
     header('Location:login.html');

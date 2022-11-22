@@ -1,6 +1,7 @@
 <?php
     require_once ('../vendor/autoload.php');
     use App\Exceptions\FormInvalidException;
+    use App\Objectes\Album;
     session_start();
 
     if (!isset($_SESSION['nick'])){
@@ -8,20 +9,15 @@
     }
     $nick = $_SESSION['nick'];
     $albums = unserialize($_SESSION['albums']);
+    if (!isset($_SESSION['concurso'])){
+        $_SESSION['concurso'] = [];
+    }
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         extract($_POST);
-        $tries = $_SESSION['tries'];
-        $_SESSION['concurso'][$tries] = $disco;
-        if ($submit === 'finalitzar') {
-            $tries=3;
-        } else {
-            $tries++;
-        }
-    } else {
-        $tries = 0;
-    }
-    $_SESSION['tries'] = $tries;
 
+        $_SESSION['concurso'][] = serialize($albums[$disco]);
+        var_dump($_SESSION['concurso']);
+    }
 ?>
 
 <html>
@@ -35,9 +31,9 @@
     <body>
     <?php
     include_once ("header.php");
-    if ($tries < 3) {
+    if (count($_SESSION['concurso']) < 3) {
     ?>
-        <h2>Pots triar tres discos favorits. Has triat fins ara: <?= $tries ?></h2>
+        <h2>Pots triar tres discos favorits. Has triat fins ara: <?= count($_SESSION['concurso']) ?></h2>
         <form method="post" action="concurso.php">
             <select name='disco' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                 <option selected>Tria el teu disc favorit</option>
@@ -60,8 +56,10 @@
         <h2>Has triat: </h2>
         <?php
             foreach ($_SESSION['concurso'] as $album) {
-                echo $albums[$album];
+                echo unserialize($album);
             }
+        unset($_SESSION['concurso']);
+        unset($_SESSION['tries']);
         ?>
     <?php } ?>
     </body>
